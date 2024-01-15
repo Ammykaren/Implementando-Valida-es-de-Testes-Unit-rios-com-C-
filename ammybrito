@@ -1,0 +1,160 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
+
+namespace Testes
+{
+public class ValidacoesListaTests
+{
+private readonly ValidacoesLista _validacoesLista;
+
+    public ValidacoesListaTests()
+    {
+        _validacoesLista = new ValidacoesLista();
+    }
+
+    [Fact]
+    public void DeveRemoverNumerosNegativosDeUmaLista()
+    {
+        // Arrange
+        List<int> lista = new List<int> { -1, 2, -3, 4, -5 };
+
+        // Act
+        var result = _validacoesLista.RemoverNumerosNegativos(lista);
+
+        // Assert
+        Assert.True(!result.Any(n => n < 0));
+    }
+
+    [Fact]
+    public void DeveConterONumero9NaLista()
+    {
+        // Arrange
+        List<int> lista = new List<int> { 1, 2, 3, 4, 9, 5 };
+
+        // Act
+        var result = _validacoesLista.ListaContemDeterminadoNumero(lista, 9);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void NaoDeveConterONumero10NaLista()
+    {
+        // Arrange
+        List<int> lista = new List<int> { 1, 2, 3, 4, 9, 5 };
+
+        // Act
+        var result = _validacoesLista.ListaContemDeterminadoNumero(lista, 10);
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void DeveMultiplicarOsElementosDaListaPor2()
+    {
+        // Arrange
+        List<int> lista = new List<int> { 1, 2, 3, 4, 5 };
+
+        // Act
+        var result = _validacoesLista.MultiplicarNumerosLista(lista, 2);
+
+        // Assert
+        Assert.Equal(new List<int> { 2, 4, 6, 8, 10 }, result);
+    }
+
+    [Fact]
+    public void DeveRetornar9ComoMaiorNumeroDaLista()
+    {
+        // Arrange
+        List<int> lista = new List<int> { 1, 2, 3, 4, 9, 5 };
+
+        // Act
+        var result = _validacoesLista.RetornarMaiorNumeroLista(lista);
+
+        // Assert
+        Assert.Equal(9, result);
+    }
+
+    [Fact]
+    public void DeveRetornarOitoNegativoComoMenorNumeroDaList()
+    {
+        // Arrange
+        List<int> lista = new List<int> { -1, 2, 3, 4, -8, 5 };
+
+        // Act
+        var result = _validacoesLista.RetornarMenorNumeroLista(lista);
+
+        // Assert
+        Assert.Equal(-8, result);
+    }
+}
+
+public class ValidacoesStringTests
+{
+    private readonly ValidacoesString _validacoesString;
+
+    public ValidacoesStringTests()
+    {
+        _validacoesString = new ValidacoesString();
+    }
+
+    [Fact]
+    public void DeveRetornar6QuantidadeCaracteresDaPalavraMatrix()
+    {
+        // Arrange
+        string texto = "Matrix";
+
+        // Act
+        var result = _validacoesString.RetornarQuantidadeCaracteres(texto);
+
+        // Assert
+        Assert.Equal(6, result);
+    }
+
+    [Fact]
+    public void DeveContemAPalavraQualquerNoTexto()
+    {
+        // Arrange
+        string texto = "Esse é um texto qualquer";
+        string palavraProcurada = "qualquer";
+
+        // Act
+        var result = _validacoesString.ContemCaractere(texto, palavraProcurada);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void NaoDeveConterAPalavraTesteNoTexto()
+    {
+        // Arrange
+        string texto = "Esse é um texto qualquer";
+        string palavraProcurada = "teste";
+
+        // Act
+        var result = _validacoesString.ContemCaractere(texto, palavraProcurada);
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void TextoDeveTerminarComAPalavraProcurado()
+    {
+        // Arrange
+        string texto = "Começo, meio e fim do texto procurado";
+        string palavraProcurada = "procurado";
+
+        // Act
+        var result = _validacoesString.TextoTerminaCom(texto, palavraProcurada);
+
+        // Assert
+        Assert.True(result);
+    }
+}
+}
